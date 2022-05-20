@@ -29,25 +29,6 @@ def porcent(index,max):
     return porcent
 
 def createDownloading(filename,totalBits,currentBits,speed,time,tid=''):
-    speed0 = str(sizeof_fmt(speed))
-    speed1 = int(speed)
-    if (speed0).__contains__ ("KiB") :
-	if speed1 < 300 :
-            sp = '🐌'
-        if speed1 > 300 and < 500 :
-            sp = '🐢'
-        if speed1 > 500 and < 999 :
-            sp = '🐇'
-    if (speed0).__contains__ ("MiB") :
-	if speed1 > 1 and < 2.5 :
-            sp = '🐆'
-        if speed1 > 2.5 and < 10 :
-            sp = '🏎'
-        if speed1 > 10 and < 20 :
-            sp = '🚀'
-        if speed1 > 20 :
-            sp = '⚡️'
-
     if str(porcent(currentBits,totalBits))+'%' != '100%' :
         emoji_porcent = '☑'
     if str(porcent(currentBits,totalBits))+'%' == '100%' :
@@ -57,7 +38,7 @@ def createDownloading(filename,totalBits,currentBits,speed,time,tid=''):
     msg+= '🔖Nombre: ' + str(filename)+'\n'
     msg+= '🗂Tamaño Total: ' + str(sizeof_fmt(totalBits))+'\n'
     msg+= '🗂Descargado: ' + str(sizeof_fmt(currentBits))+'\n'
-    msg+= str(sp) + ' Velocidad: ' + str(sizeof_fmt(speed))+'/s\n'
+    msg+= '🚀' + ' Velocidad: ' + str(sizeof_fmt(speed))+'/s\n'
     msg+= '🕐Tiempo: ' + str(datetime.timedelta(seconds=int(time))) +'\n\n'
 
     msg = '⏬ Descargando Archivo....\n\n'
@@ -65,36 +46,36 @@ def createDownloading(filename,totalBits,currentBits,speed,time,tid=''):
     msg += text_progres(currentBits,totalBits)+emoji_porcent +' '+ str(porcent(currentBits,totalBits))+'%\n\n'
     msg += '📦 Total: '+sizeof_fmt(totalBits)+'\n\n'
     msg += '📥 Descargado: '+sizeof_fmt(currentBits)+'\n\n'
-    msg += str(sp) + ' Velocidad: '+sizeof_fmt(speed)+'/s\n\n'
+    msg+= '🚀' + ' Velocidad: ' + str(sizeof_fmt(speed))+'/s\n'
     msg += '⏳ Tiempo Restante: '+str(datetime.timedelta(seconds=int(time)))+'s\n\n'
 
     if tid!='':
         msg+= '❌ /cancel_' + tid
     return msg
+
+    if tid!='':
+        msg+= '/cancel_' + tid
+    return msg
 def createUploading(filename,totalBits,currentBits,speed,time,originalname=''):
-    if str(porcent(currentBits,totalBits))+'%' != '100%' :
-        emoji_porcent = '☑'
-    if str(porcent(currentBits,totalBits))+'%' == '100%' :
-        emoji_porcent = '✅'
     msg = '⏫ Subiendo A La Nube☁️... \n\n'
     msg+= '📦 Nombre: ' + str(filename)+'\n'
     if originalname!='':
         msg = str(msg).replace(filename,originalname)
         msg+= '⏫Subiendo: ' + str(filename)+'\n'
     msg+= '📦 Total: ' + str(sizeof_fmt(totalBits))+'\n'
-    msg+= '🚀 Velocidad: ' + str(sizeof_fmt(currentBits))+'\n'
-    msg+= str(sp) + ' Velocidad: ' + str(sizeof_fmt(speed))+'/s\n'
-    msg+= '🕐Tiempo: ' + str(datetime.timedelta(seconds=int(time))) +'\n'
+    msg+= '📤 Subido: ' + str(sizeof_fmt(currentBits))+'\n'
+    msg+= '🚀 Velocidad: ' + str(sizeof_fmt(speed))+'/s\n'
+    msg+= '⏳ Tiempo Restante: ' + str(datetime.timedelta(seconds=int(time))) +'\n'
 
     msg = '⏫ Subiendo A La Nube☁...\n\n'
     msg += '📦 Nombre: '+filename+'\n'
     if originalname!='':
         msg = str(msg).replace(filename,originalname)
-        msg+= '📦 Nombre: ' + str(filename)+'\n'
-    msg += text_progres(currentBits,totalBits)+emoji_porcent +' '+ str(porcent(currentBits,totalBits))+'%\n\n'
+        msg+= '📦 Parte: ' + str(filename)+'\n'
+    msg += text_progres(currentBits,totalBits) +' '+ str(porcent(currentBits,totalBits))+'%\n\n'
     msg += '📦 Total: '+sizeof_fmt(totalBits)+'\n\n'
-    msg += '📤 Subidos: '+sizeof_fmt(currentBits)+'\n\n'
-    msg += str(sp) + ' Velocidad: '+sizeof_fmt(speed)+'/s\n\n'
+    msg += '📤 Subido: '+sizeof_fmt(currentBits)+'\n\n'
+    msg += '🚀 Velocidad: '+sizeof_fmt(speed)+'/s\n\n'
     msg += '⏳ Tiempo Restante: '+str(datetime.timedelta(seconds=int(time)))+'s\n\n'
 
     return msg
@@ -113,6 +94,7 @@ def createFinishUploading(filename,filesize,split_size,current,count,findex):
     msg+= '📤Partes Subidas: ' + str(current) + '/' + str(count) +'\n\n'
     msg+= '🗑Borrar Archivo: ' + '/del_'+str(findex)
     return msg
+
 
 def createFileMsg(filename,files):
     import urllib
